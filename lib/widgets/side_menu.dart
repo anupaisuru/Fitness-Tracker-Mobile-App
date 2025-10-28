@@ -10,30 +10,59 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
+  //index tracker
+  int selectedIndex = 0;
+
   final sideMenuData = SideMenuData();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: backgroundColor,
-      child: ListView.builder(
-        itemCount: sideMenuData.sideMenu.length,
-        itemBuilder: (context, index) {
-          return sideMenuList(sideMenuData, index);
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Container(
+        color: backgroundColor,
+        child: ListView.builder(
+          itemCount: sideMenuData.sideMenu.length,
+          itemBuilder: (context, index) {
+            return sideMenuList(sideMenuData, index);
+          },
+        ),
       ),
     );
   }
 
   Widget sideMenuList(SideMenuData sideMenuData, int index) {
-    return Row(
-      children: [
-        Icon(sideMenuData.sideMenu[index].icon, color: greyColor),
-        Text(
-          sideMenuData.sideMenu[index].title,
-          style: TextStyle(color: greyColor),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: selectedIndex == index ? sectionColor : Colors.transparent,
         ),
-      ],
+        margin: EdgeInsets.symmetric(vertical: 5),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                sideMenuData.sideMenu[index].icon,
+                color: selectedIndex == index ? blackColor : greyColor,
+              ),
+              SizedBox(width: 10),
+              Text(
+                sideMenuData.sideMenu[index].title,
+                style: TextStyle(
+                  color: selectedIndex == index ? blackColor : greyColor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
