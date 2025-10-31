@@ -8,7 +8,6 @@ class PieChartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pieData = PieChartSampleData();
 
     return SizedBox(
       height: 200,
